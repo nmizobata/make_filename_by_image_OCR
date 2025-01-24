@@ -1,23 +1,20 @@
-import os
+'''
+PDFファイル内のテキストを一旦イメージに変換して、OCRで取り出す。
+PDFファイルは、tesseract/pdf/に格納する。
+ocrは自作ライブラリ。
+20250124 K1.0 
+'''
+
 from pathlib import Path
-from pdf2image import convert_from_path
+import ocr
 
-basepath = r"C:\Users\blues\OneDrive\ドキュメント\Python Projects\make_filename_by_image_OCR\tesseract"
-# poppler_dir = Path(__file__).parent.absolute() / "poppler/Library/bin"
-poppler_dir = basepath + "/poppler/Library/bin"
+pdf_name = "sample.pdf"
 
-os.environ["PATH"] += os.pathsep + str(poppler_dir)
-# todo: os.environコマンドは、プログラム実行がおわるとどうなるのか確認する
 
-# pdf_path = Path(__file__).parent.absolute() / "/pdf/sample.pdf"
-# img_path = Path(__file__).parent.absolute() / "/image"
-
-pdf_path = basepath + "/pdf/sample.pdf"
-img_path = basepath + "/image"
-
-# convert_from_path(pdf_path, output_folder=img_path, fmt='png',output_file=pdf_path.stem)
-convert_from_path(pdf_path,output_folder=img_path, fmt='png',output_file="sample")
-
-# todo: pathlibのPathの動作を確認する。stem?
-# todo: convert_from_pathの引数の使い方を確認する。
-# 
+base_dir = Path(__file__).parent
+pdf_path = base_dir / "pdf" / pdf_name
+    
+text_list = ocr.get_text_from_pdf(pdf_path)
+for text in text_list:
+    print(text)
+    
