@@ -19,7 +19,8 @@ files_and_dirs_itr = p.iterdir()
 for file_and_dir in files_and_dirs_itr:
     print("現ディレクトリの中身:{}".format(file_and_dir))
     
-# rglob(): ワイルドカード検索→イテレータオブジェクト 現ディレクトリだけでなくサブディレクトリのものも検出する
+# rglob(): ワイルドカード検索→イテレータオブジェクト 現ディレクトリだけでなくサブディレクトリのものも検出する。
+# glob():  ワイルドカード検索→イテレータオプジェクト 現ディレクトリだけで検出する。
 files_py = p.rglob("*.py")
 for file_py in files_py:
     print("現ディレクトリの.pyファイル:{}".format(file_py))
@@ -32,6 +33,8 @@ for dirname in [x for x in p.iterdir() if x.is_dir()]:
 for filename in [x for x in p.iterdir() if x.is_file()]:
     print("現ディレクトリのファイル:{}".format(filename))
 # その他、symboolicfile等の条件式あり。
+
+# 補.指定の*.png
 
 # パス文字列のみを操作したい場合はPathオブジェクトで用意されているプロパティを利用する。ただし文字列操作のみなので注意。
 path_text = "c:hoge/hoge2/hoge3.txt"

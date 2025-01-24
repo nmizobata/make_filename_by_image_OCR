@@ -41,10 +41,25 @@ def make_image_grayscale(list_path_images:list[Path]):
     for image in list_path_images:
         img = Image.open(image)
         gray_img = img.convert('L')
-        gray_img_path = image.parent / (str(image.stem) + "_gray" + str(image.suffix))
+        working_dir = Path(__file__).parent / "image"
+        gray_img_path = working_dir / (str(image.stem) + "_gray" + str(image.suffix))
         list_pages_path_gray.append(gray_img_path)
         gray_img.save(gray_img_path)
     return list_pages_path_gray
+
+def make_image_noise_reduction(image_path:Path):
+    import cv2
+    import cv2_japanese   # cv2はパスに日本語が使えないので自作cv2ライブラリで処理
+
+    # グレースケール画像を読み込む
+    image = cv2_japanese.imread(image_path, 0)
+
+    # バイラテラルフィルタでノイズ除去
+    denoised_image = cv2.bilateralFilter(image, 1000, 75, 75)
+
+    # ノイズ除去後の画像を保存
+    denoised_image_path = Path(image_path).parent / ("denoised_" + Path(image_path).name)
+    cv2_japanese.imwrite(denoised_image_path, denoised_image)
 
 def get_text_from_pdf(pdf_path:Path):
     from pathlib import Path
@@ -89,20 +104,27 @@ def get_word_from_image(image_path:Path, area=(10,10,150,40)):
     import os.path
     from pathlib import Path
 
+    working_dir = Path(__file__).parent / "image"
+
     # tesseract.exeのパスを通します。
     pyocr.tesseract.TESSERACT_CMD = os.path.expanduser('~') + r"\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"  # os.path.expanduser('~')="C:\Users\blues\"
-
     tools = pyocr.get_available_tools()
     tool = tools[0]
 
-    # 文字認識したい画像を開きます。
+    # 画像を指定のエリアで切り取りして保存。
     img=Image.open(image_path)
-    img_region = img.crop(area)
-    img_region.save(Path(image_path).parent / "cropped.png")
+    img.crop(area).save(working_dir / "cropped.png")
 
+    # グレイスケール変換
+    make_image_grayscale([working_dir / "cropped.png"])
+    
+    # ノイズ消去
+    make_image_noise_reduction(working_dir / "cropped_gray.png")
+    
     # Tesseractで文字認識します。
+    denoised_img_gray=Image.open(working_dir / "denoised_cropped_gray.png")
     builder = pyocr.builders.TextBuilder(tesseract_layout=8)
-    text = tool.image_to_string(img_region,lang="jpn",builder=builder)
+    text = tool.image_to_string(denoised_img_gray,lang="jpn",builder=builder)
 
     return text
 
