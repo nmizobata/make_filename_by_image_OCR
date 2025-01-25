@@ -9,7 +9,7 @@ chartfile = "cropped.png"
 
 chartfile_path = chartfiles_path / chartfile
 # print(chartfile_path)
-ocr.make_image_grayscale([chartfile_path])
+ocr.make_images_grayscale([chartfile_path])
 
 # グレースケール画像を読み込む
 # chartfile = "cropped_gray.png"

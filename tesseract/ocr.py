@@ -35,8 +35,9 @@ def pdf2image(pdf_path:Path, output_path:Path, popplerpath:Path):
         page.save(output_path / image_filename)
     return list_pages_path
 
-def make_image_grayscale(list_path_images:list[Path]):
+def make_images_grayscale(list_path_images:list[Path])->list[Path]:
     from PIL import Image
+    
     list_pages_path_gray = []
     for image in list_path_images:
         img = Image.open(image)
@@ -47,7 +48,18 @@ def make_image_grayscale(list_path_images:list[Path]):
         gray_img.save(gray_img_path)
     return list_pages_path_gray
 
-def make_image_noise_reduction(image_path:Path):
+def make_image_grayscale(image_path:Path)->Path:
+    from PIL import Image
+    
+    image = Image.open(image_path)
+    gray_image = image.convert('L')
+    working_dir = Path(__file__).parent / "image"
+    gray_image_path = working_dir / (str(image_path.stem) + "_gray" + str(image_path.suffix))
+    # list_pages_path_gray.append(gray_image_path)
+    gray_image.save(gray_image_path)
+    return gray_image_path
+
+def make_image_noise_reduction(image_path:Path)->Path:
     import cv2
     import cv2_japanese   # cv2はパスに日本語が使えないので自作cv2ライブラリで処理
 
@@ -55,11 +67,12 @@ def make_image_noise_reduction(image_path:Path):
     image = cv2_japanese.imread(image_path, 0)
 
     # バイラテラルフィルタでノイズ除去
-    denoised_image = cv2.bilateralFilter(image, 1000, 75, 75)
+    denoised_image = cv2.bilateralFilter(image, 15, 75, 75)
 
     # ノイズ除去後の画像を保存
     denoised_image_path = Path(image_path).parent / ("denoised_" + Path(image_path).name)
     cv2_japanese.imwrite(denoised_image_path, denoised_image)
+    return denoised_image_path
 
 def get_text_from_pdf(pdf_path:Path):
     from pathlib import Path
@@ -68,7 +81,7 @@ def get_text_from_pdf(pdf_path:Path):
     base_dir = Path(__file__).parent
     output_path = base_dir / "image"
     list_img_path = pdf2image(pdf_path, output_path, poppler_path(base_dir))
-    list_gray_img_path= make_image_grayscale(list_img_path)
+    list_gray_img_path= make_images_grayscale(list_img_path)
     # print(list_gray_img_path)
     
     # imageファイルに対しOCR
@@ -116,7 +129,7 @@ def get_word_from_image(image_path:Path, area=(10,10,150,40)):
     img.crop(area).save(working_dir / "cropped.png")
 
     # グレイスケール変換
-    make_image_grayscale([working_dir / "cropped.png"])
+    make_images_grayscale([working_dir / "cropped.png"])
     
     # ノイズ消去
     make_image_noise_reduction(working_dir / "cropped_gray.png")
