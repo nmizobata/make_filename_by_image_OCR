@@ -54,3 +54,4 @@ print("拡張子:                           {}".format(Path(path_text).suffix))
 new_filename = Path(path_text).parent / (Path(path_text).stem+"_new"+Path(path_text).suffix)  #! ファイル名を弄る場合(文字列計算をする場合)はカッコでくくること
 print("新しいファイル名でパス作成:         {}".format(new_filename))
 print("パスの各パーツを分離したもの        {}".format(Path(path_text).parts))
+print("ファイルが存在するか:              {}".format(Path(path_text).exists()))

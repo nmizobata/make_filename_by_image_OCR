@@ -6,15 +6,18 @@ ocrは自作ライブラリ。
 '''
 
 from pathlib import Path
-import ocr
+import ocr_new
 
 pdf_name = "sample.pdf"
-
 
 base_dir = Path(__file__).parent
 pdf_path = base_dir / "pdf" / pdf_name
     
-text_list = ocr.get_text_from_pdf(pdf_path)
+# text_list = ocr_new.get_text_from_pdf(pdf_path)
+ocr = ocr_new.TextFromPdf(pdf_path)
+ocr.grayscale(True)
+text_list = ocr.execute()
+
 for text in text_list:
     print(text)
     

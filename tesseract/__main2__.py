@@ -6,7 +6,7 @@ ocrは自作ライブラリ。
 20250124 K1.0 
 '''
 
-import ocr
+import ocr_new
 from pathlib import Path
 
 basepath = Path(__file__).parent
@@ -19,5 +19,5 @@ area = (10,10,150,40)
 # area = (510, 490, 625, 515)
 # area = (1150, 10, 1270, 40)
 
-text = ocr.get_word_from_image(basepath / "image" / image_filename, area)
+text = ocr_new.get_word_from_cropped_image(basepath / "image" / image_filename, area)
 print(text)
