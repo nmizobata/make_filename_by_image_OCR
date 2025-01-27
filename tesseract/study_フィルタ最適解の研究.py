@@ -43,8 +43,8 @@ number = 0   # フィルタリング順序
 print("-"*5+" "+"filterling")
 # image_path = lib.make_image_grayscale(image_path)
 
-image_path = cd.make_image_color_detection("blue_minus_black_mask",image_path)
-image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
+# image_path = cd.make_image_color_detection("blue_minus_black_mask",image_path)
+# image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 
 # image_path = cd.make_image_color_detection("inverted",image_path)
 # image_path = image_path.rename(image_path.with_name("2_"+image_path.name))
@@ -52,8 +52,8 @@ image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 # image_path = cd.make_image_color_detection("blue_masked_image",image_path)
 # image_path = image_path.rename(image_path.with_name("3_"+image_path.name))
 
-# image_path = lib.make_image_noise_reduction(image_path)
-# image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
+image_path = lib.make_image_noise_reduction(image_path)
+image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 
 # image_path = lib.make_image_high_resolution(image_path)
 # image_path = image_path.rename(image_path.with_name("2_"+image_path.name))
@@ -76,6 +76,6 @@ tool = tools[0]
 
 img=Image.open(image_path)
 builder = pyocr.builders.TextBuilder(tesseract_layout=6)
-text = tool.image_to_string(img,lang="jpn",builder=builder)
+text = tool.image_to_string(img,lang="eng",builder=builder)
 
 print("{}: {}".format(image_path.name, text))

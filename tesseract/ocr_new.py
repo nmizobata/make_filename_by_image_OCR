@@ -33,12 +33,14 @@ import color_detection as cd
 from typing import Literal
 
 COLOR_DETECTION = Literal["NA","inverted","red_mask","red_mased_image","green_mask","green_masked_image","blue_mask","blue_masked_image","blue_minus_black_mask","blue_minus_black_masked_image"]
+LANGUAGE = Literal["eng+jpn","eng","jpn"]
 
 class Ocr(ABC):
     def __init__(self):
         self.apply_grayscale = False
         self.apply_noise_reduction = False
         self.apply_color_detection = "NA"
+        self.ocr_lang = "jpn"
         
     def grayscale(self, apply: bool = False):
         self.apply_grayscale = apply
@@ -58,6 +60,9 @@ class Ocr(ABC):
             image_path = cd.make_image_color_detection(self.apply_color_detection,image_path)
         return image_path
     
+    def ocr_language(self, lang:LANGUAGE="jpn"):
+        self.ocr_lang = lang
+        
     @abstractmethod
     def execute(self):
         pass
@@ -106,7 +111,7 @@ class TextFromImage(Ocr):
 
         # Tesseractで文字認識します。
         builder = pyocr.builders.TextBuilder(tesseract_layout=6)
-        text = tool.image_to_string(img,lang="jpn",builder=builder)
+        text = tool.image_to_string(img,lang=self.ocr_lang,builder=builder)
 
         return text
     
@@ -138,7 +143,7 @@ class WordFromCroppedImage(Ocr):
         # Tesseractで文字認識します。
         img=Image.open(self.image_path)
         builder = pyocr.builders.TextBuilder(tesseract_layout=8)
-        text = tool.image_to_string(img,lang="jpn",builder=builder)
+        text = tool.image_to_string(img,lang=self.ocr_lang,builder=builder)
 
         return text
 
