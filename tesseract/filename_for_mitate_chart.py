@@ -7,14 +7,10 @@ EUR等のクロスチャートやGBPAUD等のマルチタイムチャートの�
 from pathlib import Path
 import ocr_new
 
-def delete_all_file_in_working_dir(working_dir:Path):
-    for file in [x for x in working_dir.iterdir() if x.is_file()]:
-        # print(file)
-        file.unlink()
-
-
-
 chartfiles_path = Path(r"D:\FX\★NexT+見立てと振り返り\20250119")
+if not Path(chartfiles_path).exists():
+    print("指定のフォルダがありません {}".format(chartfiles_path))
+    
 for chartfile_path in [x for x in chartfiles_path.glob("*.png") if x.is_file()]:
     # print(chartfile_path)
     area1 = (8,10,150,44)
