@@ -6,7 +6,6 @@ cropping機能を必要に応じて使用。
 '''
 
 from pathlib import Path
-import sys
 
 def get_cropped_imagefile(image_path:Path,area: tuple)->Path:
     from pathlib import Path
