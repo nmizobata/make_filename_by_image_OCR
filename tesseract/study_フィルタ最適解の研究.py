@@ -41,6 +41,13 @@ else:
 # filtering
 number = 0   # フィルタリング順序
 print("-"*5+" "+"filterling")
+filter_list = [cd.BlueMaskRGB(), cd.Binarization(), cd.NoiseReduction()]
+for filter in filter_list:
+    number += 1
+    filter.set_image_path(image_path)
+    filter.set_serial_number(number)
+    print(" filter: {}".format(filter))
+    image_path = filter.execute()
 # image_path = lib.make_image_grayscale(image_path)
 
 # image_path = cd.make_image_color_detection("blue_minus_black_mask",image_path)
@@ -52,8 +59,8 @@ print("-"*5+" "+"filterling")
 # image_path = cd.make_image_color_detection("blue_masked_image",image_path)
 # image_path = image_path.rename(image_path.with_name("3_"+image_path.name))
 
-image_path = lib.make_image_noise_reduction(image_path)
-image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
+# image_path = lib.make_image_noise_reduction(image_path)
+# image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 
 # image_path = lib.make_image_high_resolution(image_path)
 # image_path = image_path.rename(image_path.with_name("2_"+image_path.name))

@@ -32,7 +32,7 @@ import ocr_librarys as lib
 import color_detection as cd
 from typing import Literal
 
-COLOR_DETECTION = Literal["NA","inverted","red_mask","red_mased_image","green_mask","green_masked_image","blue_mask","blue_masked_image","blue_minus_black_mask","blue_minus_black_masked_image"]
+COLOR_DETECTION = Literal["NA","inverted","red_mask","red_masked_image","green_mask","green_masked_image","blue_mask","blue_masked_image","blue_minus_black_mask","blue_minus_black_masked_image"]
 LANGUAGE = Literal["eng+jpn","eng","jpn"]
 
 class Ocr(ABC):
