@@ -7,14 +7,13 @@ image.png
 
 
 from pathlib import Path
-import ocr_new
 from PIL import Image
-import ocr_librarys as lib
-import color_detection as cd
+import image_filter_lib as flib
 import os
 import pyocr
 import study_imageの取得 as study
 import general_library as glib
+import image_filter as imf
 
 imagefiles_path = Path(r"D:\FX\★NexT+見立てと振り返り\20250119")
 imagefile = "83AUDJPY.png"
@@ -39,21 +38,33 @@ else:
 
 
 # filtering
-number = 0   # フィルタリング順序
 print("-"*5+" "+"filterling")
+filter = imf.ImageFilter()
+filter.add(flib.BlueMaskedRGB())
+filter.add(flib.Binarization())
+filter.add(flib.NoiseReduction())
+image_path = filter.execute(image_path)
+
+# filter_list = [flib.BlueMaskRGB(), flib.Binarization(), flib.NoiseReduction()]
+# for enum, filter in enumerate(filter_list):
+#     filter.set_image_path(image_path)
+#     filter.set_serial_number(enum)
+#     print(" filter{}: {}".format(enum, filter))
+#     image_path = filter.execute()
+    
 # image_path = lib.make_image_grayscale(image_path)
 
-# image_path = cd.make_image_color_detection("blue_minus_black_mask",image_path)
+# image_path = flib.make_image_color_detection("blue_minus_black_mask",image_path)
 # image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 
-# image_path = cd.make_image_color_detection("inverted",image_path)
+# image_path = flib.make_image_color_detection("inverted",image_path)
 # image_path = image_path.rename(image_path.with_name("2_"+image_path.name))
 
-# image_path = cd.make_image_color_detection("blue_masked_image",image_path)
+# image_path = flib.make_image_color_detection("blue_masked_image",image_path)
 # image_path = image_path.rename(image_path.with_name("3_"+image_path.name))
 
-image_path = lib.make_image_noise_reduction(image_path)
-image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
+# image_path = lib.make_image_noise_reduction(image_path)
+# image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 
 # image_path = lib.make_image_high_resolution(image_path)
 # image_path = image_path.rename(image_path.with_name("2_"+image_path.name))
@@ -65,7 +76,7 @@ image_path = image_path.rename(image_path.with_name("1_"+image_path.name))
 # image_path = image_path.rename(image_path.with_name("4_"+image_path.name))
 
 
-# image_path = cd.make_image_color_detection("blue_mask",image_path)
+# image_path = flib.make_image_color_detection("blue_mask",image_path)
 print("-"*5+" latest image: {}".format(image_path))
 
 # OCR
