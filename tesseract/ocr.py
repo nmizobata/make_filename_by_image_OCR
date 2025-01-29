@@ -29,12 +29,8 @@ import general_library as glib
 import image_filter as imf
 from typing import Literal
 
-<<<<<<< HEAD:tesseract/ocr.py
 
 # COLOR_DETECTION = Literal["NA","inverted","red_mask","red_masked_image","green_mask","green_masked_image","blue_mask","blue_masked_image","blue_minus_black_mask","blue_minus_black_masked_image"]
-=======
-COLOR_DETECTION = Literal["NA","inverted","red_mask","red_masked_image","green_mask","green_masked_image","blue_mask","blue_masked_image","blue_minus_black_mask","blue_minus_black_masked_image"]
->>>>>>> 880dd3967748ce1cbf215c27c6da2ead6dd8612e:tesseract/ocr_new.py
 LANGUAGE = Literal["eng+jpn","eng","jpn"]
 
 class Ocr(ABC):
