@@ -1,2 +1,3 @@
 poppler/
 **/*.pyc
+**/__pycache__/
