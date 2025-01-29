@@ -39,6 +39,7 @@ else:
 
 # filtering
 print("-"*5+" "+"filterling")
+<<<<<<< HEAD
 filter = imf.ImageFilter()
 filter.add(flib.BlueMaskedRGB())
 filter.add(flib.Binarization())
@@ -52,6 +53,15 @@ image_path = filter.execute(image_path)
 #     print(" filter{}: {}".format(enum, filter))
 #     image_path = filter.execute()
     
+=======
+filter_list = [cd.BlueMaskRGB(), cd.Binarization(), cd.NoiseReduction()]
+for filter in filter_list:
+    number += 1
+    filter.set_image_path(image_path)
+    filter.set_serial_number(number)
+    print(" filter: {}".format(filter))
+    image_path = filter.execute()
+>>>>>>> 880dd3967748ce1cbf215c27c6da2ead6dd8612e
 # image_path = lib.make_image_grayscale(image_path)
 
 # image_path = flib.make_image_color_detection("blue_minus_black_mask",image_path)
