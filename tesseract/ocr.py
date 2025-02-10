@@ -1,14 +1,7 @@
 '''
-PDFファイルおよびイメージファイル内のテキストをOCRでよみとり返すライブラリ。
+PDFファイルおよびイメージファイル内のテキストをOCRでテキスト認識。
 PDFは一度イメージに変換してからOCRを行う。
-## 準備
-必要なバイナリライブラリ
-- poppler(pdf->image変換): https://github.com/oschwartz10612/poppler-windows/releases/ からダウンロード/解凍の上、popplerフォルダに格納する。
-- tesseract(OCR): https://github.com/UB-Mannheim/tesseract/wiki からインストーラを入手し、インストールする (Additional script data, Additional langudate dataでJapaneseを選択する)
 
-installが必要なpythonライブラリ
-- conda install pdf2image(pillowも必要だがまとめてインストールされる)
-- conda install pyocr
 
 利用している自作ライブラリ
 - image_filter.py
