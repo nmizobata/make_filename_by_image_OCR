@@ -21,13 +21,13 @@ for chartfile_path in [x for x in chartfiles_path.glob("*.png") if x.is_file()]:
     
     area2 = (500,10,635,44)
     ocr2 = ocr.WordFromCroppedImage(chartfile_path,area2)
-    ocr2.add_filter(flib.NoiseReduction())
+    ocr2.add_filter(flib.BlueMaskRGB())
     ocr2.ocr_language("eng")
     text2 = ocr2.execute()
     
     area3 = (1150, 10, 1270, 44)
     ocr3 = ocr.WordFromCroppedImage(chartfile_path,area3)
-    ocr3.add_filter(flib.NoiseReduction())
+    ocr3.add_filter(flib.BlueMaskRGB())
     ocr3.ocr_language("eng")
     text3 = ocr3.execute()
     

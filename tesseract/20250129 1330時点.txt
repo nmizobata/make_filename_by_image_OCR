@@ -1,0 +1,38 @@
+00JPN225.png: JPN225 ©,ee,ee
+01EURクロス.png: ne,~EURGBP,EURNZD
+02GBPクロス.png: es,~EURGBP,GBPNZD
+03AUDクロス.png: re,-EQRAUD,AUDNZD●
+04NZDクロス.png: ,~EURNZD,AUDNZD
+05USDストレート.png: rs,-EURUSD,AUDUSD
+06CADクロス.png: ,EURCAD,AUDCAD
+07CHFクロス.png: re,~EURCHF,AUDCHF
+08JPYクロス.png: rs,— EURJPY,AUDJPY
+21EURGBP.png: EURGBP,ee,ee
+31EURAUD.png: EURAUD,ee,ee
+32GBPAUD.png: GBPAUD,ee,ie
+41EURNZD.png: EURNZD,ee,ee
+42GBPNZD.png: GBPNZD,ee,ae
+43AUDNZD.png: AUDNZD,ee,ee
+51EURUSD.png: FURUSD,ee,ee●
+52GBPUSD.png: GBPUSD,ee,ee
+53AUDUSD.png: AUDUSD,ee,ee
+54NZDUSD.png: NZDUSD,ee,ee
+61EURCAD.png: EURCAD,ee,ee
+62GBPCAD.png: GBPCAD,ee,a
+63AUDCAD.png: AUDCAD,ee,ee
+64NZDCAD.png: NZDCAD,ee,ee
+65USDCAD.png: USDCAD,ee,ae
+71EURCHF.png: EURCHF,ee,ee
+72GBPCHF.png: GBPCHF,ee,ee
+73AUDCHF.png: AUDCHF,ee,ae
+74NZDCHF.png: NZDCHF,ee,a
+75USDCHF.png: USDCHF,ee,ee
+76CADCHF.png: CADCHF,ee,ee
+81EURJPY.png: EURJPY.,ee,ee
+82GBPJPY.png: GBPJPY.,ee,a
+83AUDJPY.png: AUDJPY.,ee,ee
+84NZDJPY.png: NZDJPY |,ee,ee
+85USDJPY.png: USDIPY,ee,ee●
+86CADJPY.png: CADJPY.,ee,ee
+87CHFJPY.png: CHFEJPY |,ee,ne●
+95XAUUSD.png: XAUUSD,ee,ee

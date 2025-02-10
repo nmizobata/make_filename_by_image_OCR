@@ -21,7 +21,7 @@ def get_cropped_imagefile(image_path:Path,area: tuple)->Path:
     
 if __name__ == '__main__':
     imagefiles_path = Path(r"D:\FX\★NexT+見立てと振り返り\20250119")
-    imagefile = "83AUDJPY.png"
+    imagefile = "87CHFJPY.png"
     image_path = imagefiles_path / imagefile
     if not Path(image_path).exists():
         print("ファイルが存在しません {}".format(image_path))
