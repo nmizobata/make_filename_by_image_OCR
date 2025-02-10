@@ -1,1 +1,2 @@
-poppler/
+poppler
+__pycache__
