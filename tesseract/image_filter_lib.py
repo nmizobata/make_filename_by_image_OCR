@@ -1,4 +1,17 @@
 '''
+イメージフィルタ集。
+cv2, Pillowを使用。
+
+# 使用方法
+import image_filter
+import image_filter_lib
+
+ifilter = image_filter.ImageFilter()
+ifilter.add(NoiseReduction())
+ifilter.add(reversed())
+ifilter.execute(image_path_org, display)
+
+## 参考
 HSVによる画像の色認識とマスキング処理
 https://python.joho.info/opencv/opencv-color-detection/
 
@@ -29,7 +42,9 @@ import numpy as np
 from pathlib import Path
 # COLOR_DETECTION = Literal["NA","inverted","red_mask","red_mased_image","green_mask","green_masked_image","blue_mask","blue_masked_image","blue_minus_black_mask","blue_minus_black_masked_image"]
 
-class ImageFilter(ABC):
+
+
+class ImageFilterLib(ABC):
     def __init__(self, image_path:Path=""):
         self.image_path = image_path
         self.serial_number = ""
@@ -49,7 +64,7 @@ class ImageFilter(ABC):
     def execute():
         pass
 
-class Inverted(ImageFilter):
+class Inverted(ImageFilterLib):
     def __str__(self):
         return "Inverted"
     
@@ -63,7 +78,7 @@ class Inverted(ImageFilter):
             cv2_japanese.imwrite(new_image_path, img_inverted)
             return new_image_path
 
-class Grayscale(ImageFilter):
+class Grayscale(ImageFilterLib):
     def __str__(self):
         return "Grayscale"
     
@@ -79,7 +94,7 @@ class Grayscale(ImageFilter):
             gray_image.save(gray_image_path)
             return gray_image_path
     
-class NoiseReduction(ImageFilter):
+class NoiseReduction(ImageFilterLib):
     def __str__(self):
         return "NoiseReduction"
     
@@ -98,7 +113,7 @@ class NoiseReduction(ImageFilter):
             cv2_japanese.imwrite(denoised_image_path, denoised_image)
             return denoised_image_path
         
-class HighResolution(ImageFilter):
+class HighResolution(ImageFilterLib):
     def __str__(self):
         return "HighResolution"
     
@@ -126,7 +141,7 @@ class HighResolution(ImageFilter):
             cv2_japanese.imwrite(hireso_image_path, resized_image)
             return hireso_image_path
         
-class Binarization(ImageFilter):
+class Binarization(ImageFilterLib):
     def __str__(self):
         return "Binarization"
 
@@ -144,7 +159,7 @@ class Binarization(ImageFilter):
             cv2_japanese.imwrite(binary_image_path, binary_image)
             return binary_image_path
 
-class RedMaskHSV(ImageFilter):    
+class RedMaskHSV(ImageFilterLib):    
     def __str__(self):
         return "Red Mask(HSV)"
     
@@ -159,7 +174,7 @@ class RedMaskHSV(ImageFilter):
             return new_image_path
         
 
-class RedMaskedHSV(ImageFilter):
+class RedMaskedHSV(ImageFilterLib):
     def __str__(self):
         return "Red Masked Image (HSV)"
     
@@ -173,7 +188,7 @@ class RedMaskedHSV(ImageFilter):
             cv2_japanese.imwrite(new_image_path, red_masked)
             return new_image_path
 
-class GreenMaskHSV(ImageFilter):
+class GreenMaskHSV(ImageFilterLib):
     def __str__(self):
         return "Green Mask (HSV)"
     
@@ -187,7 +202,7 @@ class GreenMaskHSV(ImageFilter):
             cv2_japanese.imwrite(new_image_path, green_mask)
             return new_image_path
 
-class GreenMaskedHSV(ImageFilter):
+class GreenMaskedHSV(ImageFilterLib):
     def __str__(self):
         return "Green Masked Image (HSV)"
     
@@ -201,7 +216,7 @@ class GreenMaskedHSV(ImageFilter):
             cv2_japanese.imwrite(new_image_path, green_masked)
             return new_image_path
 
-class BlueMaskHSV(ImageFilter):
+class BlueMaskHSV(ImageFilterLib):
     def __str__(self):
         return "Blue Mask (HSV)"
     
@@ -215,7 +230,7 @@ class BlueMaskHSV(ImageFilter):
             cv2_japanese.imwrite(new_image_path, blue_mask)
             return new_image_path
 
-class BlueMaskedHSV(ImageFilter):
+class BlueMaskedHSV(ImageFilterLib):
     def __str__(self):
         return "Blue Masked Image (HSV)"
     
@@ -228,7 +243,7 @@ class BlueMaskedHSV(ImageFilter):
             new_image_path = self.working_dir / (self.serial_number+"blue_masked_image.png")
             cv2_japanese.imwrite(new_image_path, blue_masked)
             return new_image_path
-class BlueMinusBlackMaskHSV(ImageFilter):
+class BlueMinusBlackMaskHSV(ImageFilterLib):
     def __str__(self):
         return "Blue minus Black Mask (HSV)"
     
@@ -241,7 +256,7 @@ class BlueMinusBlackMaskHSV(ImageFilter):
             new_image_path = self.working_dir / (self.serial_number+"blue_minus_black_mask.png")
             cv2_japanese.imwrite(new_image_path, blue_minus_black_mask)
             return new_image_path
-class BlueMinusBlackMasedHSV(ImageFilter):
+class BlueMinusBlackMasedHSV(ImageFilterLib):
     def __str__(self):
         return "Blue minus Black Masked Image (HSV)"
     
@@ -254,15 +269,15 @@ class BlueMinusBlackMasedHSV(ImageFilter):
             new_image_path = self.working_dir / (self.serial_number+"blue_minus_black_masked_image.png")
             cv2_japanese.imwrite(new_image_path, blue_minus_black_masked)
             return new_image_path
-class RedMaskRGB(ImageFilter):
+class RedMaskRGB(ImageFilterLib):
     pass
-class RedMaskedRGB(ImageFilter):
+class RedMaskedRGB(ImageFilterLib):
     pass
-class GreenMaskRGB(ImageFilter):
+class GreenMaskRGB(ImageFilterLib):
     pass
-class GreenMaskedRGB(ImageFilter):
+class GreenMaskedRGB(ImageFilterLib):
     pass
-class BlueMaskRGB(ImageFilter):
+class BlueMaskRGB(ImageFilterLib):
     def __str__(self):
         return "Blue Mask (RGB)"
     
@@ -275,7 +290,7 @@ class BlueMaskRGB(ImageFilter):
             new_image_path = self.working_dir / (self.serial_number+"blue_mask_RGB.png")
             cv2_japanese.imwrite(new_image_path, blue_mask_RGB)
             return new_image_path
-class BlueMaskedRGB(ImageFilter):
+class BlueMaskedRGB(ImageFilterLib):
     def __str__(self):
         return "Blue Masked Image (RGB)"
     
@@ -288,50 +303,6 @@ class BlueMaskedRGB(ImageFilter):
             new_image_path = self.working_dir / (self.serial_number+"blue_masked_image_RGB.png")
             cv2_japanese.imwrite(new_image_path, blue_masked_RGB)
             return new_image_path
-
-
-# def make_image_color_detection(mode:COLOR_DETECTION, img_path:Path):
-#     working_dir = Path(__file__).parent / "image"
-#     img = cv2_japanese.imread(img_path)
-#     if mode=="NA":
-#         return img_path
-#     if mode=="red_mask":
-#         red_mask, red_masked_img = detect_red_color(img)
-#         cv2_japanese.imwrite(working_dir / "red_mask.png", red_mask)
-#         return working_dir / "red_mask.png"
-#     if mode=="red_masked_image":
-#         red_mask, red_masked_img = detect_red_color(img)
-#         cv2_japanese.imwrite(working_dir / "red_masked_img.png", red_masked_img)
-#         return working_dir / "red_masked_img.png"
-#     if mode=="green_mask":
-#         green_mask, green_masked_img = detect_green_color(img)
-#         cv2_japanese.imwrite(working_dir / "green_mask.png", green_mask)
-#         return working_dir / "green_mask.png"
-#     if mode=="green_masked_image":
-#         green_mask, green_masked_img = detect_green_color(img)
-#         cv2_japanese.imwrite(working_dir / "green_masked_img.png", green_masked_img)
-#         return working_dir / "green_masked_img.png"
-#     if mode=="blue_mask":
-#         blue_mask, blue_masked_img = detect_blue_color(img)
-#         cv2_japanese.imwrite(working_dir / "blue_mask.png", blue_mask)
-#         return working_dir / "blue_mask.png"
-#     if mode=="blue_masked_image":
-#         blue_mask, blue_masked_img = detect_blue_color(img)
-#         cv2_japanese.imwrite(working_dir / "blue_masked_img.png", blue_masked_img)
-#         return working_dir / "blue_masked_img.png"
-#     if mode=="blue_minus_black_mask":
-#         blue_minus_black_mask, blue_minus_black_masked_img = detect_blue_minus_black_color(img)
-#         cv2_japanese.imwrite(working_dir / "blue_minus_black_mask.png", blue_minus_black_mask)
-#         return working_dir / "blue_minus_black_mask.png"
-#     if mode=="blue_minus_black_masked_image":
-#         blue_minus_black_mask, blue_minus_black_masked_img = detect_blue_minus_black_color(img)
-#         cv2_japanese.imwrite(working_dir / "blue_minus_black_masked_img.png", blue_minus_black_masked_img)
-#         return working_dir / "blue_minus_black_masked_img.png"
-#     if mode=="inverted":
-#         inverted_img = image_inverted(img)
-#         cv2_japanese.imwrite(working_dir / "inverted_img.png", inverted_img)
-#         return working_dir / "inverted_img.png"
- 
 
 # 赤色の検出
 def detect_red_color(img):

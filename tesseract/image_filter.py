@@ -3,12 +3,13 @@
 
 '''
 from pathlib import Path
+import image_filter_lib
 
 class ImageFilter:
     def __init__(self):
         self.list_filter = []
         
-    def add(self, filter):
+    def add(self, filter:image_filter_lib.ImageFilterLib):
         self.list_filter.append(filter)
     
     def __str__(self):
@@ -23,5 +24,7 @@ class ImageFilter:
                 print(" filter{}: {}".format(enum, filter))
             image_path = filter.execute()
         return image_path
-            
+
+
+
         
