@@ -12,13 +12,13 @@ import image_filter_lib as flib
 pdf_name = "sample.pdf"
 
 base_dir = Path(__file__).parent
-pdf_path = base_dir / "pdf" / pdf_name
+pdf_path = base_dir / "test_samples" / pdf_name
     
 # text_list = ocr_new.get_text_from_pdf(pdf_path)
-ocr = ocr.TextFromPdf(pdf_path)
+ocr = ocr.TextFromPdf()
 ocr.add_filter(flib.Grayscale())
 ocr.add_filter(flib.NoiseReduction())
-text_list = ocr.execute()
+text_list = ocr.execute(pdf_path)
 
 for text in text_list:
     print(text)
