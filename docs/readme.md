@@ -17,5 +17,26 @@ https://github.com/UB-Mannheim/tesseract/wiki からインストーラを入手�
 3. opencv-python
 - pip install opencv-python (2025/2/1時点 condaではインストールできない模様)
 
-利用している自作ライブラリ
+## 自作ライブラリ
 - cv2_japanese.py
+- import general_library
+- import image_filter
+- import image_filter_lib as flib
+- import OCR
+
+## 関数
+### TextFromPdf()
+#### method
+- add_filter(flib.～)
+- ocr_language(言語):”eng+jpn", "eng", "jpn"のいずれかを指定
+- execute(PDFパス)
+### TextFromImage()
+#### method
+- add_filter(flib.～)
+- ocr_language(言語):”eng+jpn", "eng", "jpn"のいずれかを指定
+- execute(imageパス)
+### WordFromCroppedImage()
+#### method
+- add_filter(flib.～)
+- ocr_language(言語):”eng+jpn", "eng", "jpn"のいずれかを指定
+- execute(imageパス, area): areaを指定しない場合は全面
