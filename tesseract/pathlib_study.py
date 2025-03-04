@@ -55,3 +55,5 @@ new_filename = Path(path_text).parent / (Path(path_text).stem+"_new"+Path(path_t
 print("新しいファイル名でパス作成:         {}".format(new_filename))
 print("パスの各パーツを分離したもの        {}".format(Path(path_text).parts))
 print("ファイルが存在するか:              {}".format(Path(path_text).exists()))
+print(Path(path_text).parent / "{}_new{}".format(Path(path_text).stem,Path(path_text).suffix))
+      
